@@ -1,10 +1,15 @@
+import { AppProps } from "next/app";
+import Layout from "../components/layout/Layout";
 import "../styles/globals.css";
-interface MyAppProps {
-  Component: React.FC;
-  pageProps: any;
-}
-function MyApp({ Component, pageProps }: MyAppProps) {
-  return <Component {...pageProps} />;
+import MainNav from "../components/layout/MainNav";
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <Layout>
+      <MainNav />
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
 export default MyApp;

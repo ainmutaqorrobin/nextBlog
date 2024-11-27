@@ -14,7 +14,7 @@ function Hero() {
       <h1>Hi, I'm Robin</h1>
       <p>
         This is my blog about web development, my current paces is focusing on
-        any JavaScript web framework such as React, Angular, Express etc.
+        any JavaScript web framework such as React, Angular, Next and Express.
       </p>
     </section>
   );

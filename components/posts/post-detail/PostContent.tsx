@@ -1,6 +1,7 @@
 import { Post } from "../../../model";
 import PostHeader from "./PostHeader";
 import styles from "./PostContent.module.css";
+import ReactMarkdown from "react-markdown";
 const DUMMY_POST: Post = {
   date: new Date(),
   excerpt: "This is only test data to display before creating Database later.",
@@ -14,7 +15,7 @@ function PostContent() {
   return (
     <article className={styles.content}>
       <PostHeader title={DUMMY_POST.title} image={{ src: imagePath }} />
-      {DUMMY_POST.content}
+      <ReactMarkdown>{DUMMY_POST.content}</ReactMarkdown>
     </article>
   );
 }

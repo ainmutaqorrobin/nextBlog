@@ -1,8 +1,10 @@
-interface PostPageProps {
+import PostContent from "../../components/posts/post-detail/PostContent";
+
+interface PostDetailPageProps {
   slug: string;
 }
-function PostPage({ slug }: PostPageProps) {
-  return <div>{slug} page.</div>;
+function PostDetailPage({ slug }: PostDetailPageProps) {
+  return <PostContent />;
 }
 
-export default PostPage;
+export default PostDetailPage;

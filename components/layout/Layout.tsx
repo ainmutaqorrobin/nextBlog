@@ -1,4 +1,5 @@
 import { Fragment, ReactNode } from "react";
+import MainNav from "./MainNav";
 
 interface LayoutProps {
   children: ReactNode;
@@ -6,6 +7,7 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <Fragment>
+      <MainNav />
       <main>{children}</main>
     </Fragment>
   );

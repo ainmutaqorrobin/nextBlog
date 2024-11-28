@@ -1,13 +1,14 @@
+import { Post } from "../../model";
 import PostItem from "./PostItem";
 import styles from "./PostsGrid.module.css";
 interface PostsGridProps {
-  posts: [];
+  posts: Post[];
 }
 function PostsGrid({ posts }: PostsGridProps) {
   return (
     <ul className={styles.grid}>
       {posts.map((post) => (
-        <PostItem />
+        <PostItem post={post} />
       ))}
     </ul>
   );

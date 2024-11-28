@@ -5,25 +5,30 @@ import { Post } from "../../model";
 
 interface PostItemProps {
   post: Post;
+  key: string;
 }
-function PostItem({ post }: PostItemProps) {
+function PostItem({ post, key }: PostItemProps) {
   const { image, title, date, excerpt, slug } = post;
 
-  const formatDate = new Date(date).toLocaleDateString();
+  const formatDate = new Date(date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
-  // use below later
-  //   const formatDate = new Date(date).toLocaleDateString("en-US", {
-  //     day: "numeric",
-  //     month: "long",
-  //     year: "numeric",
-  //   });
-
-  const imagePath = `/images/posts/${slug}/${image}`;
+  const imagePath = `/images/posts/${slug}/${image.src}`;
+  const linkPath = `/posts/${slug}`;
   return (
-    <li className={styles.post}>
-      <Link href="">
+    <li className={styles.post} key={key}>
+      <Link href={linkPath}>
         <div className={styles.image}>
-          <Image src="" alt={title} width={300} height={200} />
+          <Image
+            src={imagePath}
+            alt={title}
+            width={300}
+            height={200}
+            layout="responsive"
+          />
         </div>
         <div className={styles.content}>
           <h3>{title}</h3>

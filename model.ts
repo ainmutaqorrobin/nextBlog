@@ -4,7 +4,7 @@ export interface Post {
   excerpt: string;
   date: Date;
   slug: string;
-  content?: string;
+  content?: {};
 }
 
 export interface Image {

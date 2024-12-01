@@ -5,13 +5,16 @@ import { Post } from "../model";
 
 const postsDirectory: string = path.join(process.cwd(), "data");
 
-function getPostData(fileName: string): Post {
+export function getPostsFiles(): string[] {
+  return fs.readdirSync(postsDirectory);
+}
+
+export function getPostData(postId: string): Post {
   //this function to read each markdown file using filesystem.
-  const filePath: string = path.join(postsDirectory, fileName);
+  const postSlug: string = postId.replace(/\.md$/, "");
+  const filePath: string = path.join(postsDirectory, `${postSlug}.md`);
   const fileContent: string = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
-
-  const postSlug: string = fileName.replace(/\.md$/, "");
 
   const postData: Post = {
     title: data.title,
@@ -26,7 +29,7 @@ function getPostData(fileName: string): Post {
 }
 export function getAllPosts(): Post[] {
   //this function to extract all markdown file using getPostData function and convert to array of Post.
-  const postFiles: string[] = fs.readdirSync(postsDirectory);
+  const postFiles: string[] = getPostsFiles();
 
   const allPosts: Post[] = postFiles.map((postFile) => {
     return getPostData(postFile);
@@ -36,7 +39,6 @@ export function getAllPosts(): Post[] {
   const sortedPosts: Post[] = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1
   );
-  console.log(sortedPosts);
 
   return sortedPosts;
 }

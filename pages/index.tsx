@@ -7,8 +7,6 @@ interface HomePageProps {
   posts: Post[];
 }
 function HomePage({ posts }: HomePageProps) {
-  console.log(posts);
-  
   return (
     <Fragment>
       <Hero />

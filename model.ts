@@ -5,7 +5,7 @@ export interface Post {
   date: Date | string;
   slug: string;
   isFeatured?: boolean;
-  content?: {};
+  content?: string;
 }
 
 export interface Image {

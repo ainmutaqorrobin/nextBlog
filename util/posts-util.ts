@@ -20,6 +20,7 @@ function getPostData(fileName: string): Post {
     date: new Date(data.date).toISOString(),
     slug: postSlug,
     content: content,
+    isFeatured: data.isFeatured,
   };
   return postData;
 }
@@ -35,6 +36,8 @@ export function getAllPosts(): Post[] {
   const sortedPosts: Post[] = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1
   );
+  console.log(sortedPosts);
+
   return sortedPosts;
 }
 

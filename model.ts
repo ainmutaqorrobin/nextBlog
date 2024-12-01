@@ -2,7 +2,7 @@ export interface Post {
   title: string;
   image: Image;
   excerpt: string;
-  date: Date;
+  date: Date | string;
   slug: string;
   isFeatured?: boolean;
   content?: {};

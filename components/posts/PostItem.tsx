@@ -16,7 +16,7 @@ function PostItem({ post, key }: PostItemProps) {
     year: "numeric",
   });
 
-  const imagePath = `/images/posts/${slug}/${image.src}`;
+  const imagePath = `/images/posts/${slug}/${image}`;
   const linkPath = `/posts/${slug}`;
   return (
     <li className={styles.post} key={key}>

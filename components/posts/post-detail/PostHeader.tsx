@@ -9,7 +9,14 @@ function PostHeader({ image, title }: PostHeaderProps) {
   return (
     <header className={styles.header}>
       <h1>{title}</h1>
-      <Image src={image.src} alt={title} width={200} height={150} />
+      <Image
+        src={image.src}
+        alt={title}
+        width={200}
+        height={150}
+        priority={false}
+        style={{ width: "auto", height: "auto" }}
+      />
     </header>
   );
 }

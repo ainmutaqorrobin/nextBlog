@@ -12,7 +12,8 @@ interface PostContentProps {
 
 function PostContent({ post }: PostContentProps) {
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
-
+  console.log(imagePath);
+  
   const customRenderers = {
     p({ node, children }: any) {
       if (node.children[0]?.tagName === "img") {

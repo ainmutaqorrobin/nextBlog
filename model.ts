@@ -15,3 +15,9 @@ export interface Image {
   height?: number;
   type?: "jpg" | "png" | "svg";
 }
+
+export interface MessageData {
+  email: string;
+  name: string;
+  message: string;
+}

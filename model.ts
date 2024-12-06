@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 export interface Post {
   title: string;
   image: Image;
@@ -17,6 +18,7 @@ export interface Image {
 }
 
 export interface MessageData {
+  id?: ObjectId;
   email: string;
   name: string;
   message: string;

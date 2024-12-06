@@ -8,6 +8,14 @@ function ContactForm() {
     name: "",
   });
 
+  const resetForm = (): void => {
+    setLocalForm({
+      email: "",
+      message: "",
+      name: "",
+    });
+  };
+
   function handleInput(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
@@ -18,16 +26,31 @@ function ContactForm() {
     }));
   }
 
-  function sendMessageHandler(event: React.FormEvent<HTMLElement>): void {
+  async function sendMessageHandler(
+    event: React.FormEvent<HTMLElement>
+  ): Promise<void> {
     event.preventDefault();
 
-    fetch("/api/contact", {
-      method: "POST",
-      body: JSON.stringify(localForm),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const response: Response = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(localForm),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      resetForm();
+
+      alert("Message sent successfully");
+    } catch (error) {
+      console.error("Error sending message", error);
+      alert("There was an error sending your message. Please try again.");
+    }
   }
   return (
     <section className={styles.contact}>

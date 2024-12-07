@@ -23,3 +23,9 @@ export interface MessageData {
   name: string;
   message: string;
 }
+
+export enum RequestStatus {
+  success = "success",
+  error = "error",
+  pending = "pending",
+}

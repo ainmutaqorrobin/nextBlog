@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ContactForm.module.css";
-import { MessageData as FormData } from "../../model";
+import { MessageData as FormData, RequestStatus } from "../../model";
+import Notification, { NotificationProps } from "../notification/Notification";
 function ContactForm() {
+  const [status, setRequestStatus] = useState<RequestStatus | undefined>();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [localForm, setLocalForm] = useState<FormData>({
     email: "",
     message: "",
@@ -26,32 +29,71 @@ function ContactForm() {
     }));
   }
 
-  async function sendMessageHandler(
-    event: React.FormEvent<HTMLElement>
-  ): Promise<void> {
-    event.preventDefault();
-
+  async function sendContactData(contactDetails: FormData): Promise<void> {
+    setRequestStatus(RequestStatus.pending);
     try {
       const response: Response = await fetch("/api/contact", {
         method: "POST",
-        body: JSON.stringify(localForm),
+        body: JSON.stringify(contactDetails),
         headers: {
           "Content-Type": "application/json",
         },
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        throw new Error(data.message || "Failed to send message");
       }
-
+      setRequestStatus(RequestStatus.success);
       resetForm();
-
-      alert("Message sent successfully");
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
       console.error("Error sending message", error);
-      alert("There was an error sending your message. Please try again.");
+      setRequestStatus(RequestStatus.error);
     }
   }
+
+  async function sendMessageHandler(event: React.FormEvent<HTMLElement>) {
+    event.preventDefault();
+    await sendContactData(localForm);
+  }
+
+  let notification: NotificationProps | undefined;
+
+  if (status === RequestStatus.pending) {
+    notification = {
+      status: RequestStatus.pending,
+      message: "Sending message...",
+      title: "Sending your message.",
+    };
+  }
+  if (status === RequestStatus.success) {
+    notification = {
+      status: RequestStatus.success,
+      message: "Message sent successfully!",
+      title: "Success!",
+    };
+  }
+  if (status === RequestStatus.error) {
+    notification = {
+      status: RequestStatus.error,
+      message: errorMessage || "There is error sending your message.",
+      title: "Error!",
+    };
+  }
+
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => {
+        setRequestStatus(undefined);
+        setErrorMessage(undefined);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
+
   return (
     <section className={styles.contact}>
       <h1>How can I help you?</h1>
@@ -97,6 +139,13 @@ function ContactForm() {
           </div>
         </div>
       </form>
+      {notification && (
+        <Notification
+          message={notification.message}
+          status={notification.status}
+          title={notification.title}
+        />
+      )}
     </section>
   );
 }

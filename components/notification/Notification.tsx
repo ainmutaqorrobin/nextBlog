@@ -1,9 +1,9 @@
 import styles from "./notification.module.css";
 
-interface NotificationProps {
+export interface NotificationProps {
   title: string;
   message: string;
-  status: string;
+  status: "success" | "error" | "pending";
 }
 function Notification({ message, status, title }: NotificationProps) {
   let statusClasses: string = "";

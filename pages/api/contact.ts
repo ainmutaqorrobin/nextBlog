@@ -28,7 +28,9 @@ export default async function handler(
     };
 
     try {
-      const dbUrl: string | undefined = process.env.DB_URL;
+      const dbUrl:
+        | string
+        | undefined = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_cluster}.izm0dyb.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
       if (!dbUrl) {
         return response
           .status(500)

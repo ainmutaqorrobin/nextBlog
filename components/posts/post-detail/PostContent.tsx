@@ -16,7 +16,6 @@ SyntaxHighlighter.registerLanguage("js", js);
 SyntaxHighlighter.registerLanguage("css", css);
 function PostContent({ post }: PostContentProps) {
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
-  console.log(imagePath);
 
   const customRenderers = {
     p({ node, children }: any) {

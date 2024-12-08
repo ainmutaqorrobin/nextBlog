@@ -1,4 +1,5 @@
 import styles from "./notification.module.css";
+import ReactDom from "react-dom";
 
 export interface NotificationProps {
   title: string;
@@ -18,11 +19,18 @@ function Notification({ message, status, title }: NotificationProps) {
 
   const cssClasses: string = `${styles.notification} ${statusClasses}`;
 
-  return (
+  const notificationElement = document.getElementById("notifications");
+
+  if (!notificationElement) {
+    return null;
+  }
+
+  return ReactDom.createPortal(
     <div className={cssClasses}>
       <h2>{title}</h2>
       <p>{message}</p>
-    </div>
+    </div>,
+    notificationElement
   );
 }
 

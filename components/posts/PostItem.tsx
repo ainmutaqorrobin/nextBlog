@@ -5,9 +5,9 @@ import { Post } from "../../model";
 
 interface PostItemProps {
   post: Post;
-  key: string;
+
 }
-function PostItem({ post, key }: PostItemProps) {
+function PostItem({ post }: PostItemProps) {
   const { image, title, date, excerpt, slug } = post;
 
   const formatDate = new Date(date).toLocaleDateString("en-US", {
@@ -19,7 +19,7 @@ function PostItem({ post, key }: PostItemProps) {
   const imagePath = `/images/posts/${slug}/${image}`;
   const linkPath = `/posts/${slug}`;
   return (
-    <li className={styles.post} key={key}>
+    <li className={styles.post} key={slug}>
       <Link href={linkPath}>
         <div className={styles.image}>
           <Image

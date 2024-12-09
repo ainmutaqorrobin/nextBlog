@@ -1,4 +1,4 @@
-import styles from "./notification.module.css";
+import styles from "./Notification.module.css";
 import ReactDom from "react-dom";
 
 export interface NotificationProps {
